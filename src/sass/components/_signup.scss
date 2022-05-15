@@ -1,0 +1,35 @@
+.container{
+    background-color: #e5e8f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0.75em;
+    height: min(650px,100vh);
+    &__left{
+        width: 50%;
+        height: 100%;
+        padding: 5em 1em;
+        background-color: #f1f3f9;
+        border-radius:10px 0 0 10px;
+        margin-right:0.3em;
+        img{
+            max-width: 100%;
+        }
+        div{
+            text-align: center;
+        }
+        h3{
+            margin: 0.5em;
+        }
+    }
+    &__right{
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        border-radius: 0 10px 10px 0;
+        padding:2em 2em 2em 4em;
+    }
+
+}

@@ -1,0 +1,34 @@
+form{
+    max-width: 450px;
+    h2{
+        margin-bottom: 1.25em;
+    }
+    div{
+        margin-bottom: .75em;
+    }
+    input{
+        width: 80%;
+        height: 2rem;
+        font-size: 1em;
+        margin: .2em 0;
+    }
+    span{
+        color: red;
+        font-weight: 600;
+    }
+    button{
+        padding: .75em 1.25em;
+        border: 1px solid rgb(5, 180, 255);
+        background-color: rgb(5, 180, 255);
+        border-radius: 5px;
+        color: white;
+        font-size: 1rem;
+        letter-spacing: .75px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .form__input--checkbox{
+        width: 25px;
+    }
+}
