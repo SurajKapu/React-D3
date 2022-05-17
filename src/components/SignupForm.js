@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
+  const navigate = useNavigate();
   const initialValues = {
     email: "",
     password: "",
@@ -10,17 +12,27 @@ function SignupForm() {
     terms: false,
   };
 
+  const [isSubmit, setIsSubmit] = useState(false);
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormErrors(validate(formValues));
+    setIsSubmit(true);
+    let isEmpty = false;
+    isEmpty = Object.values(formErrors).every((x) => x === "");
+    if (isEmpty && isSubmit) {
+      navigate("/chart");
+    }
   };
 
   const validate = (values) => {
@@ -53,16 +65,19 @@ function SignupForm() {
       : !phoneRegex.test(values.phoneNumber)
       ? "phone number must contain 10 digits"
       : "";
+
+    errors.terms = !values.terms ? "please agree our terms & conditions" : "";
     return errors;
   };
 
   return (
     <div>
-      <form className="" onSubmit={handleSubmit}>
+      <form className="form" onSubmit={handleSubmit}>
         <h2>Create an account</h2>
-        <div>
+        <div className="form__group">
           <label>Your email address</label>
           <input
+            className="form__input"
             type="text"
             name="email"
             value={formValues.email}
@@ -71,9 +86,10 @@ function SignupForm() {
           <br />
           <span>{formErrors.email}</span>
         </div>
-        <div>
+        <div className="form__group">
           <label>Your password</label>
           <input
+            className="form__input"
             type="password"
             name="password"
             value={formValues.password}
@@ -82,9 +98,10 @@ function SignupForm() {
           <br />
           <span>{formErrors.password}</span>
         </div>
-        <div>
+        <div className="form__group">
           <label>Confirm your password</label>
           <input
+            className="form__input"
             type="password"
             name="confirmPassword"
             value={formValues.confirmPassword}
@@ -93,9 +110,10 @@ function SignupForm() {
           <br />
           <span>{formErrors.confirmPassword}</span>
         </div>
-        <div>
+        <div className="form__group">
           <label>Your full name</label>
           <input
+            className="form__input"
             type="text"
             name="fullName"
             value={formValues.fullName}
@@ -104,9 +122,10 @@ function SignupForm() {
           <br />
           <span>{formErrors.fullName}</span>
         </div>
-        <div>
+        <div className="form__group">
           <label>Your phone number</label>
           <input
+            className="form__input"
             name="phoneNumber"
             value={formValues.phoneNumber}
             onChange={handleChange}
@@ -114,7 +133,7 @@ function SignupForm() {
           <br />
           <span>{formErrors.phoneNumber}</span>
         </div>
-        <div className="form__input__div">
+        <div className="form__group">
           <label>
             <input
               type="checkbox"
@@ -128,7 +147,7 @@ function SignupForm() {
           <br />
           <span>{formErrors.terms}</span>
         </div>
-        <button>Create account</button>
+        <button className="form__btn">Create account</button>
       </form>
     </div>
   );

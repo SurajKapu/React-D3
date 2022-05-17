@@ -1,0 +1,10 @@
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @mixin set-background($color) {
+    background-color: $color;
+    color: set-text-color($color);
+  }
